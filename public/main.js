@@ -5,28 +5,54 @@ const waiting = 'Waiting for data'
 const message_url = `/my-data`
 const numeric_url = `/random-number`
 let containerLoaded = false;
-let timer;
+let timer, expiration;
 let n = 0;
 let period = '.'
+let counter = 0;
+
 
 //__________________________________________________________________
 
 // container waiting for new data to come in onclick
-    const loadContainer = () => {
-        let currentContainerMessage = result_paragraph.textContent;
-        if(!containerLoaded && currentContainerMessage === waiting){
-            timer=setInterval(function(){
-                result_paragraph.textContent += period;
-                if(result_paragraph.textContent.length>19){
-                   result_paragraph.textContent = waiting
-                }
-            },1000)
-        }
+const loadContainer = () => {
+    let currentContainerMessage = result_paragraph.textContent;
+    if(!containerLoaded && currentContainerMessage === waiting){
+        timer=setInterval(function(){
+            result_paragraph.textContent += period;
+            if(result_paragraph.textContent.length>19){
+            result_paragraph.textContent = waiting
+            }
+        },1000)
     }
-    loadContainer()
+}
+loadContainer()
 //__________________________________________________________________
+// get data with fetch (without promise)
+const getFetchData = e =>{
+    containerLoaded=true;
+    e.target.classList.add('no-pointer')
+    clearInterval(timer)
+    fetch(numeric_url).then(res=>res.json()).then(data=>{
+        result_paragraph.textContent=data.number
+        expiration = setInterval(()=>{
+                    counter++
+                    console.log(counter)
+                    if(counter >=2){
+                        e.target.classList.remove('no-pointer')
+                        containerLoaded=false;
+                        counter = 0;
+                        clearInterval(expiration);
+                        resetData();
+                        loadContainer();
+                    }
+                },1000)
+    })
+}
+get_btn.addEventListener('click',getFetchData)
 
+//__________________________________________________________________
 // helper function to fetch "GET" request data
+// get data with promise
 // const handle_get_fetch = async (url) => {
 //     let response = await fetch(url,
 //         {method:'GET',
@@ -51,13 +77,13 @@ let period = '.'
 //  }
 // // execute click event listener
 // get_btn.addEventListener('click',getData)
-
 //__________________________________________________________________
 
 //XMLHttpRequest
 const xml = new XMLHttpRequest();
 const method = "GET"
 const bool = true;
+let counter2=0;
 xml.responseType='json'
 xml.onload=e=>{
     n++
@@ -67,29 +93,27 @@ xml.onload=e=>{
     // text=text.slice(0,-n)
     // result_paragraph.textContent=text.join``
 }
-let counter = 0;
-const handle_get_xml = (e) => {
-    containerLoaded=true;
-    clearInterval(timer)
-    e.target.classList.add('no-pointer')
-    let expiration = setInterval(()=>{
-        counter++
-        console.log(counter)
-        if(counter >=2){
-            e.target.classList.remove('no-pointer')
-            containerLoaded=false;
-            counter = 0;
-            containerLoaded=false;
-            clearInterval(expiration);
-            resetData();
-            loadContainer();
-        }
-    },1000)
+// const handle_get_xml = (e) => {
+//     containerLoaded=true;
+//     clearInterval(timer)
+//     e.target.classList.add('no-pointer')
+//     expiration = setInterval(()=>{
+//         counter2++
+//         console.log(counter2)
+//         if(counter2 >=2){
+//             e.target.classList.remove('no-pointer')
+//             containerLoaded=false;
+//             counter2 = 0;
+//             clearInterval(expiration);
+//             resetData();
+//             loadContainer();
+//         }
+//     },1000)
 
-    xml.open(method,numeric_url,bool)
-    xml.send();
-}
-get_btn.addEventListener('click',handle_get_xml)
+//     xml.open(method,numeric_url,bool)
+//     xml.send();
+// }
+// get_btn.addEventListener('click',handle_get_xml)
 
 //__________________________________________________________________
 
