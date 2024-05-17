@@ -3,10 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>Get request Application</title>
 </head>
 <body>
-    <h1>Hello World</h1>
-    <h2>How are you!</h2>
+    <section id="get-container">
+        <div class="get-container-border">
+            <div class="get-container-container">
+                <div class="button-container div-container">
+                    <!--button-->
+                    <button id="get-button" class="get-btn btn-get button-get">PRESS ME</button>
+                    <div class="title-container">
+                        <h3 class="title-actual title">Get Data by clicking button</h3>
+                    </div>
+                </div>
+                <div class="result-container div-container">
+                    <!--result-->
+                    <div class="result-actual result actual-result">
+                        <!--data inside-->
+                        <p>Waiting for data</p>
+                    </div>
+                    <div class="title-container">
+                            <h3 class="title-actual title">Data</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
+<script src="main.js" type="module"></script>
 </html>
