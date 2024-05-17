@@ -75,7 +75,7 @@ const handle_get_xml = (e) => {
     let expiration = setInterval(()=>{
         counter++
         console.log(counter)
-        if(counter >=5){
+        if(counter >=2){
             e.target.classList.remove('no-pointer')
             containerLoaded=false;
             counter = 0;
@@ -86,7 +86,7 @@ const handle_get_xml = (e) => {
         }
     },1000)
 
-    xml.open(method,message_url,bool)
+    xml.open(method,numeric_url,bool)
     xml.send();
 }
 get_btn.addEventListener('click',handle_get_xml)
