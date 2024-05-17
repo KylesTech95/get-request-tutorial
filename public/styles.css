@@ -28,7 +28,9 @@ body{
     width:100%;
     border: 4px solid red;
 }
-
+.no-pointer{
+    pointer-events: none;
+}
 .get-container-border{
     display:flex;
     flex-direction:column;

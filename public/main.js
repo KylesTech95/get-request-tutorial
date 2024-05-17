@@ -1,33 +1,32 @@
 // variables
 const get_btn = document.getElementById('get-button')
-const result_paragraph = document.querySelector('.result-actual')
-let n = 0;
-let period = '.'
+const result_paragraph = document.querySelector('.result-actual>p')
 const waiting = 'Waiting for data'
 const message_url = `/my-data`
 const numeric_url = `/random-number`
-const containerLoaded = false;
+let containerLoaded = false;
 let timer;
+let n = 0;
+let period = '.'
+
+//__________________________________________________________________
+
 // container waiting for new data to come in onclick
-window.onload = e =>{
     const loadContainer = () => {
-        let currentContainerMessage = result_paragraph.children[0].textContent;
+        let currentContainerMessage = result_paragraph.textContent;
         if(!containerLoaded && currentContainerMessage === waiting){
             timer=setInterval(function(){
-                result_paragraph.children[0].textContent += period;
-                if(result_paragraph.children[0].textContent.length>19){
-                   result_paragraph.children[0].textContent = waiting
+                result_paragraph.textContent += period;
+                if(result_paragraph.textContent.length>19){
+                   result_paragraph.textContent = waiting
                 }
             },1000)
         }
     }
     loadContainer()
+//__________________________________________________________________
 
-}
-
-
-// fetch
-// helper function to fetched "GET" request data
+// helper function to fetch "GET" request data
 // const handle_get_fetch = async (url) => {
 //     let response = await fetch(url,
 //         {method:'GET',
@@ -68,9 +67,34 @@ xml.onload=e=>{
     // text=text.slice(0,-n)
     // result_paragraph.textContent=text.join``
 }
-const handle_get_xml = () => {
+let counter = 0;
+const handle_get_xml = (e) => {
+    containerLoaded=true;
     clearInterval(timer)
-    xml.open(method,numeric_url,bool)
+    e.target.classList.add('no-pointer')
+    let expiration = setInterval(()=>{
+        counter++
+        console.log(counter)
+        if(counter >=5){
+            e.target.classList.remove('no-pointer')
+            containerLoaded=false;
+            counter = 0;
+            containerLoaded=false;
+            clearInterval(expiration);
+            resetData();
+            loadContainer();
+        }
+    },1000)
+
+    xml.open(method,message_url,bool)
     xml.send();
 }
 get_btn.addEventListener('click',handle_get_xml)
+
+//__________________________________________________________________
+
+// reset container to default data (waiting for data...)
+const resetData = () => {
+    result_paragraph.textContent = waiting;
+    setInterval(timer,1000)
+}

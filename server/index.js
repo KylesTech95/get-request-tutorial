@@ -15,8 +15,9 @@ app.use(express.urlencoded({extended:true}))
 app.use(cors())
 app.use(helmet())
 
-// routes
+//__________________________________________________________________
 
+// routes
 app.route('/home').get((req,res)=>{
     res.sendFile(__dirname+'/index.html')
 })
@@ -29,9 +30,12 @@ app.route('/random-number').get((req,res)=>{
     for(let i = 0; i < 100;i++){
         array.push(i)
     }
-    console.log(array)
     res.json({number:array[Math.floor(Math.random()*array.length)]})
 })
+
+//__________________________________________________________________
+
+// listen on port
 app.listen(PORT,()=>{
     console.log('You are listening on port ' + PORT + '.'
     )
