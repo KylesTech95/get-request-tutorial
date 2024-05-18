@@ -6,4 +6,11 @@
         justify-content: center;
         gap:1rem;
     }
+    .query-title-container{
+        grid-column-start: 1;
+        grid-column-end:1;
+    }
+    #query-container{
+        grid-template-columns:auto;
+    }
 }

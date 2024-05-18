@@ -34,6 +34,16 @@ app.route('/random-number').get((req,res)=>{
     res.json({number:array[Math.floor(Math.random()*array.length)]})
 })
 
+app.route('/api/users').get((req,res)=>{
+    const {firstname} = req.query
+    if(!/test/g.test(firstname)){
+        res.json({message:false})
+    }
+    else{
+        res.json({message:true})
+    }
+})
+
 //__________________________________________________________________
 
 // listen on port

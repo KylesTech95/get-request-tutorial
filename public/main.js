@@ -1,6 +1,9 @@
 // variables
 const get_btn = document.getElementById('get-button')
 const result_paragraph = document.querySelector('.result-actual>p')
+const result_query= document.querySelector('.query-actual>p')
+console.log(result_query)
+const result_paragraph2 = document.querySelector('.query-actual')
 const waiting = 'Waiting for data'
 const message_url = `/my-data`
 const numeric_url = `/random-number`
@@ -135,5 +138,21 @@ xml.onload=e=>{
 const resetData = () => {
     result_paragraph.textContent = waiting;
     setInterval(timer,1000)
+}
+
+
+
+// query for data
+let firstname_btn = document.getElementById('get-query-button')
+let firstname_query = document.getElementById('firstname')
+// firstname_btn.onsubmit=e=>{
+//     e.preventDefault()
+// }
+firstname_btn.onclick=e=>{
+    e.preventDefault()
+    let value = firstname_query.value
+    fetch(`/api/users/?firstname=${value}`).then(res => res.json()).then(data=>{
+        console.log(data)
+    })
 }
 

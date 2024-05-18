@@ -31,6 +31,31 @@
             </div>
         </div>
     </section>
+    <section id="query-container">
+        <div class="query-title-container">
+            <h1>Query Container</h1>
+        </div>
+        <div class="form-container">
+            <form action="/api/users" method="GET" id="form-query">
+                <div class="input-container">
+                    <label for="firstname">First Name</label>
+                    <input type="text" id="firstname" name="firstname">
+                    <button id="get-query-button" class="get-btn btn-get button-get original-shadow">PRESS ME (Query)</button>
+                </div>
+            </form>
+        </div>
+        <div class="result-container div-container">
+            <!--result-->
+            <div class="result-actual result actual-result query-actual query-ac">
+                <!--data inside-->
+                <p>Waiting for data</p>
+            </div>
+            <div class="title-container">
+                    <h3 class="title-actual title">Data</h3>
+            </div>
+        </div>
+        
+    </section>
 </body>
 <script src="main.js" type="module"></script>
 </html>
