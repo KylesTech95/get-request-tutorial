@@ -16,8 +16,16 @@ body{
     background:#333;
     color:#fff;
     bordeR:none;
-    box-shadow: 0 .5rem 12px .5px #333;
     transition: .75s;
+}
+.original-shadow{
+    box-shadow: 0 .5rem 12px .5px #333;
+}
+#get-button:active{
+    box-shadow: 0 .5rem 12px .5px #f00;
+}
+.mobile-active-touch{
+    box-shadow: 0 .5rem 12px .5px #f00;
 }
 #get-button:hover{
     transform:scale(.9);

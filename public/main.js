@@ -11,6 +11,15 @@ let period = '.'
 let counter = 0;
 
 
+const webkitTouch = element => {
+    element.classList.remove('original-shadow')
+    element.classList.add('mobile-active-touch')
+    setTimeout(()=>{
+        element.classList.remove('mobile-active-touch')
+        element.classList.add('original-shadow')
+    },150)
+}
+
 //__________________________________________________________________
 
 // container waiting for new data to come in onclick
@@ -47,6 +56,11 @@ const getFetchData = e =>{
                     }
                 },1000)
     })
+
+    // webkit-active-touch
+    //.mobile-active-touch
+    webkitTouch(e.target)
+
 }
 get_btn.addEventListener('click',getFetchData)
 
@@ -122,3 +136,4 @@ const resetData = () => {
     result_paragraph.textContent = waiting;
     setInterval(timer,1000)
 }
+
