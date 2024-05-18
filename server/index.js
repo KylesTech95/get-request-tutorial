@@ -30,6 +30,7 @@ app.route('/random-number').get((req,res)=>{
     for(let i = 0; i < 100;i++){
         array.push(i)
     }
+    array = [...array].map((_,x)=>x%2==0 ? 'string: '+_:x)
     res.json({number:array[Math.floor(Math.random()*array.length)]})
 })
 
