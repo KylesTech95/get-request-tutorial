@@ -22,17 +22,20 @@ body{
 .original-shadow{
     box-shadow: 0 .5rem 12px .5px #333;
 }
-#get-button:active{
+#get-button:active,
+#get-query-button:active{
     box-shadow: 0 .5rem 12px .5px #f00;
 }
 .mobile-active-touch{
     box-shadow: 0 .5rem 12px .5px #f00;
 }
-#get-button:hover{
+#get-button:hover,
+#get-query-button:hover{
     transform:scale(.9);
     transition: .25s;
     cursor:pointer;
 }
+
 #get-container{
     height:100vh;
     width:100%;

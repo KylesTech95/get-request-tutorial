@@ -14,6 +14,13 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use(express.urlencoded({extended:true}))
 app.use(cors())
 app.use(helmet())
+app.use((req, res, next) => {
+    res.status(404).send("Sorry can't find that!")
+  })
+  app.use((err, req, res, next) => {
+    console.error(err.stack)
+    res.status(500).send('Something broke!')
+  })
 
 //__________________________________________________________________
 
@@ -36,11 +43,13 @@ app.route('/random-number').get((req,res)=>{
 
 app.route('/api/users').get((req,res)=>{
     const {firstname} = req.query
-    if(!/test/g.test(firstname)){
-        res.json({message:false})
+    let control = 'random'
+    let regex = new RegExp(control,'ig')
+    if(!regex.test(firstname)){
+        res.json({message:false,currentword:control})
     }
     else{
-        res.json({message:true})
+        res.json({message:true,currentword:control})
     }
 })
 

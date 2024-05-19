@@ -145,14 +145,26 @@ const resetData = () => {
 // query for data
 let firstname_btn = document.getElementById('get-query-button')
 let firstname_query = document.getElementById('firstname')
+let query_title = document.querySelector('.query-title')
+let query_result = document.querySelector('.query-ac > p')
 // firstname_btn.onsubmit=e=>{
 //     e.preventDefault()
 // }
 firstname_btn.onclick=e=>{
     e.preventDefault()
+    e.target.classList.add('no-pointer')
     let value = firstname_query.value
     fetch(`/api/users/?firstname=${value}`).then(res => res.json()).then(data=>{
         console.log(data)
+        if(data.currentword){
+            query_title.textContent = data.currentword;
+        }
+        query_result.textContent = data.message
+        webkitTouch(e.target)
+
     })
+    setTimeout(()=>{
+        e.target.classList.remove('no-pointer')
+    },1000)
 }
 
