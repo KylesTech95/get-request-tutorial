@@ -1,0 +1,31 @@
+[{
+    "id":1,
+    "name":"James",
+    "food":"banana"
+},
+{
+    "id":2,
+    "name":"Kelly",
+    "food":"sliced-ham"
+},
+{
+    "id":3,
+    "name":"Ben",
+    "food":"salad"
+},
+{
+    "id":4,
+    "name":"Kyle",
+    "food":"chicken"
+},
+{
+    "id":5,
+    "name":"Max",
+    "food":"Bacon"
+},
+{
+    "id":6,
+    "name":"Steve",
+    "food":"Octopus"
+}
+]

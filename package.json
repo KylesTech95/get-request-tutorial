@@ -1,6 +1,6 @@
 {
   "author": "Kyle Anthony",
-  "main": "server/template.js",
+  "main": "server/app.js",
   "dependencies": {
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
@@ -11,6 +11,6 @@
     "npm": "^10.8.0"
   },
   "scripts": {
-    "dev": "nodemon template.js"
+    "dev": "nodemon app.js"
   }
 }
