@@ -15,7 +15,7 @@ app.get('/users',function(req,res){
     // string state (stringified)
     const users = fs.readFileSync(path.resolve('server/users.json'),{encoding:'utf8'})
 
-    console.log(users)
+    // console.log(users)
     if(users){
         // parse into an object
         let jsonUser = JSON.parse(users)
@@ -46,11 +46,73 @@ app.get('/users',function(req,res){
             },1000*(i+1))
         }
     }
-   
+})
+
+
+const animals = [{
+    id:1,
+    name: 'victor',
+    type:'bird'
+},
+{
+    id:2,
+    name: 'james',
+    type:'reptile'
+},
+{
+    id:3,
+    name: 'kyle',
+    type:'jaguar'
+},
+{
+    id:4,
+    name: 'mary',
+    type:'canine'
+}]
+
+// allowed inputs
+const allowed_inputs = ['one','two','three']
+
+// requset params
+app.get('/animals/:limit/:type/:word',function(req,res){
+// console params
+// console.log(req.params.name)
+// console.log(req.params.id)
+
+// for(i in req.params){
+//     console.log(i) // property
+//     console.log(req.params[i]) // value
+// }
+// const type_of_animal = [...animals].filter((animal,index)=>{
+//     // method
+//     // return animal.type === req.params.type 
+//     return animal.id >= req.params.limit
+// })
+
+// console.log(type_of_animal)
+
+// regex with params
+// if(/car/g.test(req.params.word)){
+//     res.json({message:req.params.word}) // true
+// }
+// else{
+//     console.log('wrong regex input')
+//     res.json({error:'wrong regex input'}) // false
+// }
+
+
+// allowed inputs
+
+// if(!allowed_inputs.includes(req.params.word)){
+//     throw new Error('wrong input made')
+// }
+// else{
+//     res.json({message:'success with '+req.params.word})
+// }
+
 
 
 })
-
 
 
 
