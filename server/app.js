@@ -114,6 +114,23 @@ app.get('/animals/:limit/:type/:word',function(req,res){
 
 })
 
+// request query
+app.get('/query',function(req,res){
+    //method
+    console.log(req.query) // req query object
+    // console.log(req.query.type) // query value
+
+    //______________________________________
+    // imaginary object that represents req.query object
+
+    /*
+    ?
+    {
+        type: 44, [&]
+        car: corvette
+    }
+     */
+})
 
 
 // listen on server
