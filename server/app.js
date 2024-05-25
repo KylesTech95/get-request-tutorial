@@ -5,6 +5,7 @@ const fs = require('fs')
 const path = require('path')
 
 
+
 // routes
 // app.get('/test',(req,res)=>{
 //     res.send('Hello World')
@@ -131,7 +132,6 @@ app.get('/query',function(req,res){
     }
      */
 })
-
 
 
 

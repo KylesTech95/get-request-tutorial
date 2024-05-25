@@ -17,10 +17,74 @@ app.use(helmet())
 app.use((req, res, next) => {
     res.status(404).send("Sorry can't find that!")
   })
-  app.use((err, req, res, next) => {
+app.use((err, req, res, next) => {
     console.error(err.stack)
     res.status(500).send('Something broke!')
   })
+  // Secure endpoints/URL with new RegExp (regex)
+// app.use((req,res,next)=>{
+//     // helper function to validate endpoint
+//     const checkValidRegex = (arr,current_path) => {
+//         arr = arr.filter(endpoint=>{
+//             let hypothetical;
+//             let convertRegexToString = "/" + endpoint.toString().slice(3,-3) // convert regex to a string
+//             let convertStringToRegex = new RegExp(convertRegexToString+"$") // discard additional slash in our new regex
+//             hypothetical = convertStringToRegex
+//             // console.log(endpoint)
+//             // console.log(hypothetical)
+//             return endpoint.test(current_path) || hypothetical.test(current_path)
+//         })
+//         console.log(arr.length)
+//         console.log(arr)
+//         return arr.length !== 1
+//     }
+//     let includeRegex = [new RegExp('/daddy/'),new RegExp('/daddy2/'),new RegExp('/daddy3/')]
+//     // get route params
+//     let currentPath = req.path;
+//     let currentMethod = !req.method.get ? undefined : req.method.get;
+//     // check valid regex
+//     let validRegex = checkValidRegex(includeRegex, currentPath) // check for valid regex in url
+
+//     try{
+//         if(validRegex && currentMethod == undefined){
+//             res.send("something wrong with app. check url")
+//         }
+//         else{
+//             next();
+//         }
+//     }
+//     catch(err){
+//         res.send(err,'console.log("App broke. Check URL"')
+//     }
+// })
+//    __
+//    ||
+//    ||
+//  __||__
+//  \    /
+//   \  /
+//    \/
+
+// endpoints of daddy regexp
+app.get('/daddy/api',function(req,res){
+    res.send("daddy app sent!")
+})
+app.get('/daddy2/api',function(req,res){
+    res.send("daddy2 app sent!")
+})
+app.get('/daddy3/api',function(req,res){
+    res.send("daddy3 app sent!")
+})
+// reversed endpoints to test regex
+app.get('/api/daddy',function(req,res){
+    res.send("reverse daddy app sent!")
+})
+app.get('/api/daddy2',function(req,res){
+    res.send("reverse daddy2 app sent!")
+})
+app.get('/api/daddy3',function(req,res){
+    res.send("reverse daddy3 app sent!")
+})
 
 //__________________________________________________________________
 
