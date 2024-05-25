@@ -172,13 +172,13 @@ const checkInvalidValue = (vals) => {
 
 const checkTooManyGuesses = (vals) => {
     // method to check if we have more than 3 guesses
-    return !(vals.length <= 5 && vals.length > 0);
+    return !(vals.length <= 3 && vals.length > 0);
 }
 
 const checkOutOfScope = (vals) => {
     // method to check if numbers are out of scope
     return [...vals].filter(val=>{
-        return (+val) < 1 || (+val) > 100 /// what we do not want!
+        return (+val) < 1 || (+val) > 15 /// what we do not want!
     }).length > 0
 }
 
@@ -200,7 +200,7 @@ app.get('/number-guess',function(req,res){
    let queries = req.query; // queries object
    let keys = Object.keys(queries) // array of keys (property)
    let vals = Object.values(queries).flat() // array of values
-   let numbers = new Array(100).fill("").map((x,index) => index + 1)
+   let numbers = new Array(15).fill("").map((x,index) => index + 1)
    console.log(vals)
 //    console.log(numbers)
    let arr;
@@ -242,7 +242,7 @@ else{
             res.send("Too many guesses")
         }
         else if(outOfScope){
-            res.send("values are outside of 1 & 100. Try again.")
+            res.send("values are outside of 1 & 15. Try again.")
         }
         else {
             // check lose
