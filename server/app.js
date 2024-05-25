@@ -133,6 +133,138 @@ app.get('/query',function(req,res){
 })
 
 
+
+
+
+
+// functions
+
+const generate5Nums = (numbers,arr=[]) => {
+    // metheod
+    let max = 5;
+    let min = 0;
+    let random;
+
+
+    // while loop
+    while(max > min){
+        // iteration
+        random = numbers[Math.floor(Math.random()*numbers.length)]
+        if(arr.includes(random)){
+            random = numbers[Math.floor(Math.random()*numbers.length)]
+        } else{
+            arr.push(random);
+            max-=1
+        }
+    }
+    return arr
+}
+
+const checkInvalidProp = (keys) => {
+    // method to check invalid property
+    return [...keys].length === 1 && keys[0] == 'guess' && !/function/.test(typeof(keys[0])) ? false : true
+}
+
+const checkInvalidValue = (vals) => {
+    // method to check invalid value
+    return vals.every((val,index)=> !/function/.test(typeof(val))) && vals.every((val,index)=>/^(-)?\d+$/.test(val)) ? false : true
+}
+
+const checkTooManyGuesses = (vals) => {
+    // method to check if we have more than 3 guesses
+    return !(vals.length <= 5 && vals.length > 0);
+}
+
+const checkOutOfScope = (vals) => {
+    // method to check if numbers are out of scope
+    return [...vals].filter(val=>{
+        return (+val) < 1 || (+val) > 100 /// what we do not want!
+    }).length > 0
+}
+
+const gameLost = (vals,randoms) => {
+    // method to check if we lost the game
+    return [...randoms].every(random=>{
+        return [...vals].every(val=>{
+           return val != random
+        })
+    })
+}
+
+
+
+
+
+app.get('/number-guess',function(req,res){
+    //method
+   let queries = req.query; // queries object
+   let keys = Object.keys(queries) // array of keys (property)
+   let vals = Object.values(queries).flat() // array of values
+   let numbers = new Array(100).fill("").map((x,index) => index + 1)
+   console.log(vals)
+//    console.log(numbers)
+   let arr;
+   let randomNums = generate5Nums(numbers,arr)
+//    console.log(randomNums)
+
+// boolean checks
+const invalidProp = checkInvalidProp(keys)
+// console.log(invalidProp)
+const invalidVal = checkInvalidValue(vals)
+// console.log(invalidVal)
+const tooManyGuesses = checkTooManyGuesses(vals)
+// console.log(tooManyGuesses)
+const outOfScope = checkOutOfScope(vals)
+// console.log(outOfScope)
+
+// making the game work
+if(!queries.hasOwnProperty('guess')){
+    // end
+    res.send("No properties listed")
+}
+else{
+    // continue
+    // check if prop & value is correct
+    if(invalidProp && invalidVal){
+        res.send("invalid property & value")
+    }
+    else if(invalidProp){
+        res.send("invalid prop")
+    }
+    else if(invalidVal){
+        res.send("invalid value")
+    }
+    //_______________
+    else{
+        // continue
+        // too many guesses
+        if(tooManyGuesses){
+            res.send("Too many guesses")
+        }
+        else if(outOfScope){
+            res.send("values are outside of 1 & 100. Try again.")
+        }
+        else {
+            // check lose
+            if(gameLost(vals,randomNums)){
+                res.json({message:"You lose, try again",nums:randomNums})
+            } else {
+                // check win
+                res.json({message:"You Win,",nums:randomNums})
+            }
+        }
+    }
+}
+
+})
+
+// 53:04 - cutout & cut into the next video
+
+
+
+
+
+
 // listen on server
 app.listen(PORT,()=>{
     console.log(`You are listening on port ${PORT}\nMore text added`)
